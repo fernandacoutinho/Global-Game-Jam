@@ -1,5 +1,7 @@
 main {
-  background-color: rgb(212, 238, 255);
+  background-image: url('https://image.freepik.com/vetores-gratis/ilustracao-de-paisagem-montanha-verao-desenhos-animados-de-fundo-de-paisagem-natural-montanhosa-simples-com-campos-cenicos-de-grama-verde-em-colinas-e-montanhas-no-horizonte-cena-de-natureza-ensolarada-no-verao_213110-517.jpg');
+
+  background-position: center;
   width: 480px;
   height: 320px;
   position: relative;
@@ -58,7 +60,7 @@ main {
   left: calc(480px / 2 - 50px / 2);
 }
 
-.placar {
+#pontuacao {
   width: 50px;
   height: 20px;
   display: grid;

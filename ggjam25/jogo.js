@@ -2,23 +2,26 @@ const canhao = document.querySelector("#c");
 const tiro = document.querySelector("#t");
 const bolhas = document.querySelectorAll(".bolha");
 
-//inicia elemento
+//inicia elemento, variavel
 const dt = 16 / 1000;
 let vAngulo = 0;
 let angulo = -90;
 const vTiro = 100;
 tiro.style.top = "305px";
 tiro.style.left = `${480 / 2 - 15 / 2}px`;
+let tempoRestante = 60;
+let jogoAtivo = true;
+let potuacao = 0
 
 let vTop = -vTiro * Math.sin((angulo / 180) * Math.PI);
 let vLeft = vTiro * Math.cos((angulo / 180) * Math.PI);
 debugger;
-for (let i = 0; i < bolhas.length; i++) {
-  const bolha = bolhas[i];
-  let top = -120 + Math.floor(80 * Math.random());
-  let left = Math.floor(440 * Math.random());
-  bolha.style.left = `${left}px`;
-  bolha.style.top = `${top}px`;
+
+bolhas.forEach(bolha => inicializarBolha(bolha));
+
+function inicializarBolha(bolha) {
+  bolha.style.left = `${Math.random() * 440}px`;
+  bolha.style.top = `${-120 + Math.random() * 80}px`;
 }
 
 canhao.style.transform = `rotate(${angulo + 90}deg)`;
@@ -100,6 +103,8 @@ function verificaColisoes() {
     if (colidiu(bolha, tiro)) {
       bolha.style.top = "350px";
       tiro.style.top = "350px";
+      pontuacao += 5;
+      document.getElementById("pontuacao").innerText = `${pontuacao}`;
     }
   }
 }
@@ -117,3 +122,16 @@ function colidiu(a, b) {
   }
   return true;
 }
+
+const intervaloJogo = setInterval(passo, dt);
+const contadorTempo = setInterval(() => {
+  if (tempoRestante > 0) {
+    tempoRestante--;
+    document.getElementById("tempo").innerText = `${tempoRestante}s`; 
+  } else {
+    clearInterval(intervaloJogo);
+    clearInterval(contadorTempo);
+    jogoAtivo = false;
+    alert("Fim do jogo! Tempo esgotado.");
+  }
+}, 1000);
